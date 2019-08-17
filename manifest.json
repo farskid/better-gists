@@ -1,0 +1,19 @@
+{
+  "name": "Gist Copy Button",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "description": "This extension adds a useful copy button to each files on gists",
+  "homepage_url": "https://github.com/farskid/gist-copy-button-extension",
+  "icons": {
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "permissions": ["activeTab", "https://gist.github.com/*"],
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "matches": ["https://gist.github.com/*"],
+      "js": ["src/inject/inject.js"]
+    }
+  ]
+}
