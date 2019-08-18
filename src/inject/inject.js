@@ -1,13 +1,16 @@
 function copyToClipboard(text) {
   const copyFrom = document.createElement("textarea");
+  // We don't need to see it!
   copyFrom.style.position = "fixed";
   copyFrom.style.width = 0;
   copyFrom.style.height = 0;
   copyFrom.textContent = text;
+  // Insert into dom
   document.body.appendChild(copyFrom);
   copyFrom.select();
   document.execCommand("copy");
   copyFrom.blur();
+  // Remove after copy is done
   document.body.removeChild(copyFrom);
 }
 
@@ -20,11 +23,22 @@ function copyText($file) {
 function CopyButton($file) {
   const $elem = document.createElement("a");
   $elem.classList.add("btn", "btn-sm");
+
   $elem.href = "#";
 
   $elem.onclick = e => {
     e.preventDefault();
     copyText($file);
+    // Prepare tooltip data
+    $elem.setAttribute("aria-label", "Copied to Clipboard!");
+    $elem.classList.add("tooltipped", "tooltipped-s", "tooltipped-multiline");
+    // Trigger hover
+    const evt = new MouseEvent("mouseover", {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    $elem.dispatchEvent(evt);
   };
   $elem.innerText = "Copy";
 
