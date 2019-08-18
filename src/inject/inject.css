@@ -1,0 +1,11 @@
+.tooltipped-error.tooltipped-error.tooltipped-n:before {
+  border-top-color: red;
+}
+.tooltipped-error.tooltipped-error:after {
+  background-color: red;
+  color: white;
+}
+
+.tooltipped-wrapped.tooltipped-error:after {
+  max-width: 150px;
+}
