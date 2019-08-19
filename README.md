@@ -1,6 +1,20 @@
 ## [👉 Grab it here](https://chrome.google.com/webstore/detail/gist-copy-button/dliomfdofdofnaghhnhnflpolbbaambh)
 
-![demo.png](demo.png)
+## Featurs
+
+- A copy button added on each file in a Gist
+
+  ![demo1.png](demo1.png)
+
+- Convert each file in a Gist into an expandable details (accordion).
+  It won't convert Gist containing only 1 single file
+
+  ![demo2.png](demo2.png)
+
+- Settings
+  You can customize features by settings them on the options pages
+
+  ![demo3.png](demo3.png)
 
 ## Push an update
 
