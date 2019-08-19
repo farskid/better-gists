@@ -14,7 +14,7 @@
       "run_at": "document_start",
       "matches": ["https://gist.github.com/*"],
       "css": ["css/inject.css"],
-      "js": ["dist/inject.js"]
+      "js": ["js/inject.js"]
     }
   ]
 }
