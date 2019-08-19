@@ -10,12 +10,13 @@
     "dev": "watch 'yarn build' src",
     "compile": "tsc",
     "clean": "rm -rf distribution && mkdir distribution && mkdir distribution/js",
-    "prepare-distribution": "cp -r src/css src/icons distribution && cp manifest.json distribution",
+    "prepare-distribution": "cp -r src/css src/icons src/html distribution && cp manifest.json distribution",
     "build": "run-s clean prepare-distribution compile",
     "package": "cd distribution && zip -9 -r ../${npm_package_name}-v${npm_package_version}.zip *",
     "create-git-tag": "git tag $npm_package_version -m $npm_package_version && git push origin $npm_package_version"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.88",
     "npm-run-all": "^4.1.5",
     "typescript": "^3.5.3",
     "watch": "^1.0.2"

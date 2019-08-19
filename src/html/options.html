@@ -1,0 +1,28 @@
+<style>
+  .option {
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+</style>
+<form class="settings-form" id="settings-form">
+  <div>
+    <h3>Features</h3>
+  </div>
+  <div class="option">
+    <div>
+      <input type="checkbox" id="copy-button" name="copy-button" />
+      <label for="copy-button"><strong>Copy Button</strong></label>
+    </div>
+    <p>A copy button added on each file in a Gist</p>
+  </div>
+  <div class="option">
+    <div>
+      <input type="checkbox" id="expandable-detail" name="expandable-detail" />
+      <label for="expandable-detail"><strong>Expandable Details</strong></label>
+    </div>
+    <p>Convert each file in a Gist into an expandable details (accordion)</p>
+    <p>It won't convert Gist containing only 1 single file</p>
+  </div>
+</form>
+<script src="../js/options.js"></script>

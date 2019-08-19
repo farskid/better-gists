@@ -12,3 +12,9 @@
 - Push the new tag
 
 > NOTE: New tags and bumping versions will be automated soon (CI will also automate uploading new packahe to web store)
+
+## Dev
+
+run `yarn dev` to run a watch mode. this mode with build typescript and copy over html, css and manifest file over to distribution folder.
+
+> Note: for now, the dev command only watches src directory
