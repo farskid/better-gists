@@ -3,13 +3,12 @@
     "target": "es5",
     "lib": ["dom", "esnext"],
     "resolveJsonModule": true,
-    "rootDir": "src",
-    "outDir": "dist",
+    "rootDir": "src/ts",
+    "outDir": "distribution/js",
     "module": "commonjs",
     "esModuleInterop": true,
     "removeComments": true,
-    "sourceMap": true,
-    "experimentalDecorators": true,
+    "sourceMap": false,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -18,7 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["./node_modules/@types", "./typings"],
-    "incremental": true,
+    "incremental": false,
     "types": []
   }
 }
