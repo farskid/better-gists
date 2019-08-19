@@ -1,5 +1,7 @@
 ## [👉 Grab it here](https://chrome.google.com/webstore/detail/gist-copy-button/dliomfdofdofnaghhnhnflpolbbaambh)
 
+A chrome extension that adds a set of useful features to Github Gists.
+
 ## Featurs
 
 - A copy button added on each file in a Gist
