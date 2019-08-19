@@ -104,16 +104,66 @@
     }
   }
 
+  function convertToDetails($file: Element) {
+    const $fileHeader = $file.querySelector(".file-header") as Element;
+    const $fileBody = $file.querySelector(".Box-body") as Element;
+
+    const $details = document.createElement("details");
+    $details.classList.add("details-overlay");
+
+    const $summary = document.createElement("summary");
+    const $body = document.createElement("div");
+
+    $summary.appendChild($fileHeader);
+    $body.appendChild($fileBody);
+
+    $details.appendChild($summary);
+    $details.appendChild($body);
+
+    $file.appendChild($details);
+  }
+
+  function getFeatures() {
+    return new Promise(resolve => {
+      return chrome.storage.sync.get(
+        ["copy-button", "expandable-detail"],
+        items => {
+          resolve(items);
+        }
+      );
+    });
+  }
+
   // Run on content loaded
-  window.addEventListener("DOMContentLoaded", () => {
+  window.addEventListener("DOMContentLoaded", async () => {
     if (!isSingleGistPage) {
       return;
     }
     try {
+      let features = (await getFeatures()) as Record<string, boolean>;
+      console.log({ features });
       const files = document.querySelectorAll(".file");
+      const numberOfFiles = files.length;
 
       files.forEach($file => {
-        addCopyButton($file);
+        // Wrap each feature in a separate try-catch
+        // we don't want failure in one break others too!
+        if (features["copy-button"]) {
+          try {
+            addCopyButton($file);
+          } catch (err) {
+            console.warn("GistCopyButton: add-copy-button:", err);
+          }
+        }
+
+        // Do not convert a single file in Gist
+        if (features["expandable-detail"] && numberOfFiles > 1) {
+          try {
+            convertToDetails($file);
+          } catch (err) {
+            console.warn("GistCopyButton: convert-to-details:", err);
+          }
+        }
       });
     } catch (err) {
       console.warn("GistCopyButton:", err);
