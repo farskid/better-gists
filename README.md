@@ -10,17 +10,17 @@ A chrome extension that adds a set of useful features to Github Gists.
 
 - A copy button added on each file in a Gist
 
-  ![demo1.png](demo1.png)
+<img src="demo1.png" width="50%" />
 
-- Convert each file in a Gist into an expandable details (accordion).
+- Convert each file in a Gist into an expandable detail (accordion).
   It won't convert Gist containing only 1 single file
 
-  ![demo2.png](demo2.png)
+<img src="demo2.png" width="50%" />
 
-- Settings
-  You can customize features by settings them on the options pages
+- Settings Page
+  You can customize features by setting them on the options pages
 
-  ![demo3.png](demo3.png)
+<img src="demo3.png" width="50%" />
 
 ## Push an update
 
