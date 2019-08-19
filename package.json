@@ -1,0 +1,20 @@
+{
+  "name": "gist-copy-button-extension",
+  "private": true,
+  "version": "0.3.0",
+  "main": "index.js",
+  "repository": "git@github.com:farskid/gist-copy-button-extension.git",
+  "author": "Farzad YZ <farskid@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc -w",
+    "compile": "tsc",
+    "package:name": "echo $npm_package_name",
+    "package:version": "echo $npm_package_version",
+    "package:git": "git archive --format=zip HEAD -o ../${npm_package_name}-v${npm_package_version}.zip",
+    "package": "zip -r ../${npm_package_name}-v${npm_package_version}.zip * -i css dist manifest.json"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}

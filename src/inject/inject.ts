@@ -1,5 +1,8 @@
 (function() {
-  function withCatchError(func, onError) {
+  function withCatchError<F extends (args?: any) => void>(
+    func: F,
+    onError: (err: any) => void
+  ): (args?: any) => void {
     return function(...args) {
       try {
         func(...args);
@@ -16,8 +19,8 @@
   };
 
   function createTooltipOnElement(
-    $elem,
-    tooltipText,
+    $elem: Element,
+    tooltipText: string,
     { error = false, wrapped = false } = {}
   ) {
     $elem.setAttribute("aria-label", tooltipText);
@@ -26,7 +29,7 @@
     wrapped && $elem.classList.add(...tooltipClassnames.wrapped);
   }
 
-  function removeTooltipFromElement($elem) {
+  function removeTooltipFromElement($elem: Element) {
     // const clone = $elem.cloneNode(true);
     $elem.removeAttribute("aria-label");
     $elem.classList.remove(...Object.values(tooltipClassnames).flat());
@@ -36,7 +39,7 @@
   /**
    * According to Github primer design system, tooltips only trigger on hover.
    */
-  function triggerHover($elem) {
+  function triggerHover($elem: Element) {
     const evt = new MouseEvent("mouseover", {
       view: window,
       bubbles: true,
@@ -45,12 +48,12 @@
     $elem.dispatchEvent(evt);
   }
 
-  function copyToClipboard(text) {
+  function copyToClipboard(text: string) {
     const copyFrom = document.createElement("textarea");
     // We don't need to see it!
     copyFrom.style.position = "fixed";
-    copyFrom.style.width = 0;
-    copyFrom.style.height = 0;
+    copyFrom.style.width = "0";
+    copyFrom.style.height = "0";
     copyFrom.textContent = text;
     // Insert into dom
     document.body.appendChild(copyFrom);
@@ -61,20 +64,22 @@
     document.body.removeChild(copyFrom);
   }
 
-  function copyText($file) {
-    const text = $file.querySelector(`[name="gist[content]"]`).value;
+  function copyText($file: Element) {
+    const text = ($file.querySelector(
+      `[name="gist[content]"]`
+    ) as HTMLTextAreaElement).value;
     copyToClipboard(text);
     console.log(`✅ GistCopyButton: gist content is copied to the clipboard!`);
   }
 
-  function CopyButton($file) {
+  function CopyButton($file: Element) {
     const $elem = document.createElement("a");
     $elem.classList.add("btn", "btn-sm");
 
     $elem.href = "#";
 
     $elem.onclick = withCatchError(
-      e => {
+      (e: MouseEvent) => {
         e.preventDefault();
         copyText($file);
         createTooltipOnElement($elem, "Copied to Clipboard!");
@@ -83,7 +88,7 @@
           removeTooltipFromElement($elem);
         }, 2000);
       },
-      err => {
+      (err: any) => {
         console.warn("GistCopyButton:", err);
         createTooltipOnElement(
           $elem,
@@ -99,10 +104,11 @@
     return $elem;
   }
 
-  function addCopyButton($file) {
-    $file
-      .querySelector(".file-header > .file-actions")
-      .appendChild(CopyButton($file));
+  function addCopyButton($file: Element) {
+    const $fileActions = $file.querySelector(".file-header > .file-actions");
+    if ($fileActions !== null) {
+      $fileActions.appendChild(CopyButton($file));
+    }
   }
 
   // Run on content loaded

@@ -13,8 +13,8 @@
     {
       "run_at": "document_start",
       "matches": ["https://gist.github.com/*"],
-      "css": ["src/inject/inject.css"],
-      "js": ["src/inject/inject.js"]
+      "css": ["css/inject/inject.css"],
+      "js": ["dist/inject/inject.js"]
     }
   ]
 }
