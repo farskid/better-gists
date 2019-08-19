@@ -1,15 +1,8 @@
 (function() {
-  function withCatchError<F extends (args?: any) => void>(
-    func: F,
-    onError: (err: any) => void
-  ): (args?: any) => void {
-    return function(...args) {
-      try {
-        func(...args);
-      } catch (err) {
-        onError(err);
-      }
-    };
+  function isSingleGistPage() {
+    return /https:\/\/gist\.github\.com\/\w(-\w|\w\w|\w){0,19}\/\w+/gi.test(
+      window.location.href
+    );
   }
 
   const tooltipClassnames = {
@@ -78,26 +71,26 @@
 
     $elem.href = "#";
 
-    $elem.onclick = withCatchError(
-      (e: MouseEvent) => {
+    try {
+      $elem.onclick = e => {
         e.preventDefault();
         copyText($file);
         createTooltipOnElement($elem, "Copied to Clipboard!");
         triggerHover($elem);
-        setTimeout(() => {
-          removeTooltipFromElement($elem);
-        }, 2000);
-      },
-      (err: any) => {
-        console.warn("GistCopyButton:", err);
-        createTooltipOnElement(
-          $elem,
-          "Error copying gist text, see console for more info",
-          { error: true, wrapped: true }
-        );
-        triggerHover($elem);
-      }
-    );
+      };
+    } catch (err) {
+      console.warn("GistCopyButton:", err);
+      createTooltipOnElement(
+        $elem,
+        "Error copying gist text, see console for more info",
+        { error: true, wrapped: true }
+      );
+      triggerHover($elem);
+    } finally {
+      setTimeout(() => {
+        removeTooltipFromElement($elem);
+      }, 2000);
+    }
 
     $elem.innerText = "Copy";
 
@@ -113,17 +106,17 @@
 
   // Run on content loaded
   window.addEventListener("DOMContentLoaded", () => {
-    withCatchError(
-      () => {
-        const files = document.querySelectorAll(".file");
+    if (!isSingleGistPage) {
+      return;
+    }
+    try {
+      const files = document.querySelectorAll(".file");
 
-        files.forEach($file => {
-          addCopyButton($file);
-        });
-      },
-      err => {
-        console.warn("GistCopyButton:", err);
-      }
-    )();
+      files.forEach($file => {
+        addCopyButton($file);
+      });
+    } catch (err) {
+      console.warn("GistCopyButton:", err);
+    }
   });
 })();
