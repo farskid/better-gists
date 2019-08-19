@@ -9,3 +9,15 @@
 .tooltipped-wrapped.tooltipped-error:after {
   max-width: 150px;
 }
+
+.file > details > summary {
+  position: relative;
+}
+
+.file > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.file > .details-overlay[open] > summary:before {
+  display: none;
+}
