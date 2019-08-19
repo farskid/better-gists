@@ -9,12 +9,13 @@
   "scripts": {
     "dev": "tsc -w",
     "compile": "tsc",
-    "package:name": "echo $npm_package_name",
-    "package:version": "echo $npm_package_version",
-    "package:git": "git archive --format=zip HEAD -o ../${npm_package_name}-v${npm_package_version}.zip",
-    "package": "zip -r ../${npm_package_name}-v${npm_package_version}.zip * -i css dist manifest.json"
+    "clean": "rm -rf distribution && mkdir distribution && mkdir distribution/js",
+    "prepare-distribution": "cp -r src/css src/icons distribution && cp manifest.json distribution",
+    "build": "run-s clean prepare-distribution compile",
+    "package": "cd distribution && zip -9 -r ../${npm_package_name}-v${npm_package_version}.zip *"
   },
   "devDependencies": {
+    "npm-run-all": "^4.1.5",
     "typescript": "^3.5.3"
   }
 }
