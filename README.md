@@ -2,6 +2,10 @@
 
 A chrome extension that adds a set of useful features to Github Gists.
 
+![https://img.shields.io/github/v/tag/farskid/better-gists?sort=semver](https://img.shields.io/github/v/tag/farskid/better-gists?sort=semver)
+![https://img.shields.io/chrome-web-store/v/dliomfdofdofnaghhnhnflpolbbaambh](https://img.shields.io/chrome-web-store/v/dliomfdofdofnaghhnhnflpolbbaambh)
+![https://img.shields.io/chrome-web-store/users/dliomfdofdofnaghhnhnflpolbbaambh](https://img.shields.io/chrome-web-store/users/dliomfdofdofnaghhnhnflpolbbaambh)
+
 ## Featurs
 
 - A copy button added on each file in a Gist
