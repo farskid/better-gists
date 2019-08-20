@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "watch 'yarn build' src",
-    "compile": "tsc",
+    "compile": "webpack",
     "clean": "rm -rf distribution && mkdir distribution && mkdir distribution/js",
     "prepare-distribution": "cp -r src/css src/icons src/html distribution && cp manifest.json distribution",
     "build": "run-s clean prepare-distribution compile",
@@ -18,7 +18,10 @@
   "devDependencies": {
     "@types/chrome": "^0.0.88",
     "npm-run-all": "^4.1.5",
+    "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
-    "watch": "^1.0.2"
+    "watch": "^1.0.2",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
   }
 }
