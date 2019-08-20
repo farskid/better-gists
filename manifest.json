@@ -1,6 +1,6 @@
 {
   "name": "better-gists",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "manifest_version": 2,
   "description": "This extension adds a set of useful features to Github Gists",
   "homepage_url": "https://github.com/farskid/gist-copy-button-extension",
@@ -8,13 +8,23 @@
   "icons": {
     "128": "icons/icon128.png"
   },
-  "permissions": ["activeTab", "https://gist.github.com/*", "storage"],
+  "permissions": [
+    "activeTab",
+    "https://gist.github.com/*",
+    "storage"
+  ],
   "content_scripts": [
     {
       "run_at": "document_start",
-      "matches": ["https://gist.github.com/*"],
-      "css": ["css/inject.css"],
-      "js": ["js/inject.js"]
+      "matches": [
+        "https://gist.github.com/*"
+      ],
+      "css": [
+        "css/inject.css"
+      ],
+      "js": [
+        "js/inject.js"
+      ]
     }
   ],
   "options_page": "html/options.html"
