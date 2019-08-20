@@ -2,9 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "esnext"],
-    "rootDir": "src/ts",
-    "outDir": "distribution/js",
-    "module": "none",
+    "module": "commonjs",
     "esModuleInterop": true,
     "removeComments": true,
     "sourceMap": false,

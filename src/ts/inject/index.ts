@@ -1,4 +1,7 @@
-(function () {
+import { storage } from "../storage";
+import { featureIds } from "../config";
+
+(function() {
   function isSingleGistPage() {
     return /https:\/\/gist\.github\.com\/\w(-\w|\w\w|\w){0,19}\/\w+/gi.test(
       window.location.href
@@ -123,43 +126,30 @@
     $file.appendChild($details);
   }
 
-  const storage = {
-    getFeatures(): Promise<Feature> {
-      return new Promise(resolve => {
-        return chrome.storage.sync.get(featureIds, features => {
-          console.log({ features });
-          resolve(features);
-        });
-      });
-    },
-    setFeatures(items: Feature) {
-      return new Promise(() => {
-        chrome.storage.sync.set(items, () => {
-          console.log(`set ${JSON.stringify(items)} successfully!`);
-        });
-      });
-    }
-  };
-
   // Run on content loaded
   window.addEventListener("DOMContentLoaded", async () => {
-    if (!isSingleGistPage) {
+    if (!isSingleGistPage()) {
       return;
     }
     try {
-      let features = (await storage.getFeatures());
+      let features = await storage.getFeatures();
       console.log({ features });
-
 
       // First time before user sets anything to the storage, features is an empty object
       if (Object.keys(features).length === 0) {
         console.log("first time setting options");
         // Set features to true in storage
         console.log("setting all features to true in storage");
-        const newFeatures = Object.values(featureIds).reduce((total, current) => {
-          return { ...total, [current]: true };
-        }, {});
+        const newFeatures = Object.values(featureIds).reduce(
+          (total, current) => {
+            return { ...total, [current]: true };
+          },
+          {}
+        );
         console.log({ newFeatures });
+        // Update for rendering
+        features = newFeatures;
+        // Update store
         storage.setFeatures(newFeatures);
       }
 

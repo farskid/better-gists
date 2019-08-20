@@ -8,23 +8,13 @@
   "icons": {
     "128": "icons/icon128.png"
   },
-  "permissions": [
-    "activeTab",
-    "https://gist.github.com/*",
-    "storage"
-  ],
+  "permissions": ["activeTab", "https://gist.github.com/*", "storage"],
   "content_scripts": [
     {
       "run_at": "document_start",
-      "matches": [
-        "https://gist.github.com/*"
-      ],
-      "css": [
-        "css/inject.css"
-      ],
-      "js": [
-        "js/inject.js"
-      ]
+      "matches": ["https://gist.github.com/*"],
+      "css": ["css/inject.css"],
+      "js": ["js/inject/index.js"]
     }
   ],
   "options_page": "html/options.html"

@@ -1,0 +1,1 @@
+export type Feature = { [k: string]: boolean };

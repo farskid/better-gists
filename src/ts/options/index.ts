@@ -1,9 +1,9 @@
+import { Feature } from "../types";
+import { featureIds } from "../config";
+
 console.log("options page");
 
 const $form = document.getElementById("settings-form") as HTMLFormElement;
-type Feature = { [k: string]: boolean };
-
-const featureIds = ["copy-button", "expandable-detail"];
 
 const storage = {
   getFeatures(): Promise<Feature> {
