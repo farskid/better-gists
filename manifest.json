@@ -1,6 +1,6 @@
 {
   "name": "better-gists",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "manifest_version": 2,
   "description": "This extension adds a set of useful features to Github Gists",
   "homepage_url": "https://github.com/farskid/gist-copy-button-extension",
