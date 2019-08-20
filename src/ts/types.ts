@@ -1,1 +1,1 @@
-export type Feature = { [k: string]: boolean };
+export type Feature = Map<string, boolean>;

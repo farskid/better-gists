@@ -4,6 +4,7 @@ module.exports = [
   {
     entry: "./src/ts/inject/index.ts",
     mode: "development",
+    devtool: "none",
     module: {
       rules: [
         {
@@ -24,6 +25,7 @@ module.exports = [
   {
     entry: "./src/ts/options/index.ts",
     mode: "development",
+    devtool: "none",
     module: {
       rules: [
         {

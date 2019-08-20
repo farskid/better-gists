@@ -13,6 +13,7 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
     "typeRoots": ["./node_modules/@types", "./typings"],
     "incremental": false,
     "types": ["chrome"]
