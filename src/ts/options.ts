@@ -1,33 +1,23 @@
 console.log("options page");
 
 const $form = document.getElementById("settings-form") as HTMLFormElement;
+type Feature = { [k: string]: boolean };
 
-type Feature = "copy-button" | "expandable-detail";
-const features: Feature[] = ["copy-button", "expandable-detail"];
-
-type Features = Record<Feature, boolean>;
+const featureIds = ["copy-button", "expandable-detail"];
 
 const storage = {
-  _cache: {},
-  _hasFetchedFeatures: false,
-  getFeatures(): Promise<Features> {
+  getFeatures(): Promise<Feature> {
     return new Promise(resolve => {
-      if (this._hasFetchedFeatures) {
-        return this._cache;
-      }
-
-      return chrome.storage.sync.get(features, items => {
-        console.log(items);
-        this._cache = items;
-        this._hasFetchedFeatures = true;
-        resolve(items as Features);
+      return chrome.storage.sync.get(featureIds, features => {
+        console.log({ features });
+        resolve(features);
       });
     });
   },
-  setFeature(id: Feature, value: boolean): Promise<void> {
+  setFeatures(items: Feature) {
     return new Promise(() => {
-      chrome.storage.sync.set({ [id]: value }, () => {
-        console.log(`set ${id} to ${value} successfully!`);
+      chrome.storage.sync.set(items, () => {
+        console.log(`set ${JSON.stringify(items)} successfully!`);
       });
     });
   }
@@ -35,15 +25,37 @@ const storage = {
 
 // Initialize checkboxes with feature settings from storage
 storage.getFeatures().then(features => {
-  for (let id in features) {
-    $form[id].checked = features[id as Feature];
+  // First time before user sets anything to the storage, features is an empty object
+  if (Object.keys(features).length === 0) {
+    console.log("first time setting options");
+    // Set all checkboxes to true
+    for (let id in featureIds) {
+      ($form[id] as HTMLInputElement).checked = true;
+    }
+    // Set features to true in storage
+    console.log("setting all features to true in storage");
+    const newFeatures = Object.values(featureIds).reduce((total, current) => {
+      return { ...total, [current]: true };
+    }, {});
+    console.log({ newFeatures });
+    storage.setFeatures(newFeatures);
+  } else {
+    console.log("storage has already been used before");
+    // Check the checkboxes respective to the feature object coming from storage
+    for (let id in features) {
+      ($form[id] as HTMLInputElement).checked = features[id];
+    }
   }
 });
 
 // Register click handler to alter storage
-features.forEach(id => {
+featureIds.forEach(id => {
   const checkbox = $form[id];
   checkbox.onchange = () => {
-    storage.setFeature(id, checkbox.checked);
+    const feature = {
+      [id]: checkbox.checked
+    };
+    console.log(`set ${id} to ${checkbox.checked}`);
+    storage.setFeatures(feature);
   };
 });
